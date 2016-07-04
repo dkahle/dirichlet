@@ -1,0 +1,129 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "# ",
+  fig.path = "figures/README-",
+  dpi = 250
+)
+```
+
+
+# __invgamma__
+
+__invgamma__ implements the `(d/p/q/r)` statistics functions for the [chi distribution](https://en.wikipedia.org/wiki/Chi_distribution) in [R](http://cran.r-project.org).  It is ideal for using in other packages since it is lightweight and leverages the `(d/p/q/r)chisq()` line of functions maintained by CRAN.
+
+
+
+### Getting __chi__
+
+<!-- There are two ways to get __chi__.  For the [CRAN version](https://cran.r-project.org/package=chi), use -->
+<!-- ```{r, eval=FALSE} -->
+<!-- install.packages("chi") -->
+<!-- ``` -->
+For the development version, use
+```{r, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("dkahle/chi")
+```
+
+
+
+### The `(d/p/q/r)chi()` functions
+
+The defining property of the chi distribution is that it is the square root of a chi random variable.
+
+
+The [PDF](https://en.wikipedia.org/wiki/Probability_density_function) (the _f(x)_) can be evaluated with the `dchi()` function:
+```{r, fig.height = 3}
+library(chi)
+library(ggplot2); theme_set(theme_bw())
+x <- seq(0, 6, .01)
+qplot(x, dchi(x, 7), geom = "line")
+```
+
+
+The [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) can be evaluated with the `pinvgamma()` function:
+```{r}
+f <- function(x) dchi(x, 7)
+q <- 2
+integrate(f, 0, q)
+(p <- pchi(q, 7))
+```
+
+The [quantile function](https://en.wikipedia.org/wiki/Quantile_function) can be evaluated with `qchi()`:
+```{r}
+qchi(p, 7) # = q
+```
+
+And random number generation can be performed with `rchi()`:
+```{r}
+set.seed(1)
+rchi(5, 7)
+```
+`rchi()` can be used to obtain a [Monte Carlo](https://en.wikipedia.org/wiki/Monte_Carlo_method) estimate of the probability given by `pchi()` above:
+```{r}
+samples <- rchi(1e5, 7)
+mean(samples <= q)
+```
+Moreover, we can check the consistency and correctness of the implementation with
+```{r, fig.height = 3}
+qplot(samples, geom = "density") + 
+  stat_function(fun = f,  color = "red")
+```
+
+
+
+
+### Related packages
+
+The __Runuran__ package also implements a sampler from the chi distribution, using the function `Runuran::urchi()`.  (It also provides `udchi()`, but not `upchi()` or `uqchi()`.)  Here's a comparison of how fast the samplers are, with the punch line being that __Runuran__ is about 3x faster for larger numbers of samples, whereas __chi__ is much faster for smaller samples (e.g. 100 or 1000).
+
+```{r}
+library(Runuran)
+library(microbenchmark)
+
+# chi::rchi() is much faster for small datasets
+microbenchmark(
+  urchi(1e3, 5),
+  rchi(1e3, 5)
+)
+
+# Runuran::urchi is ~3x faster for larger datasets
+microbenchmark(
+  urchi(1e5, 5),
+  rchi(1e5, 5)
+)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
