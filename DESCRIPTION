@@ -8,5 +8,8 @@ Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("a
 Description: Light weight implementation of the standard distribution 
   functions for the Dirichlet distribution, wrapping those for the gamma
   distribution in the stats package.
+Suggests:
+  ggplot2,
+  dplyr
 License: GPL-2
 RoxygenNote: 5.0.1
