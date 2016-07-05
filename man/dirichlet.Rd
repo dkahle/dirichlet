@@ -3,16 +3,10 @@
 \name{dirichlet}
 \alias{ddirichlet}
 \alias{dirichlet}
-\alias{pdirichlet}
-\alias{qdirichlet}
 \alias{rdirichlet}
 \title{The Dirichlet Distribution}
 \usage{
 ddirichlet(x, alpha, log = FALSE)
-
-pdirichlet(q, alpha, lower.tail = TRUE, log.p = FALSE)
-
-qdirichlet(p, alpha, lower.tail = TRUE, log.p = FALSE)
 
 rdirichlet(n, alpha)
 }
@@ -25,13 +19,13 @@ positive entries)}
 \item{log, log.p}{logical; if TRUE, probabilities p are given as 
 log(p).}
 
-\item{lower.tail}{logical; if TRUE (default), probabilities are 
-P[X <= x] otherwise, P[X > x].}
+\item{n}{number of observations. If length(n) > 1, the length is 
+taken to be the number required.}
 
 \item{p}{vector of probabilities.}
 
-\item{n}{number of observations. If length(n) > 1, the length is 
-taken to be the number required.}
+\item{lower.tail}{logical; if TRUE (default), probabilities are 
+P[X <= x] otherwise, P[X > x].}
 }
 \description{
 Density, distribution function, quantile function and random 
@@ -43,7 +37,11 @@ standard (d/p/q/r)gamma R implementation, so look at, say,
 \code{\link{dgamma}} for details.
 }
 \examples{
-1 + 1
+
+ddirichlet(c(.5,.5), c(.5, .5))
+dbeta(.5, .5, .5)
+
+rdirichlet(10, c(.5, .5))
 
 }
 \seealso{
