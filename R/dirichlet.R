@@ -8,16 +8,13 @@
 #' \code{\link{dgamma}} for details.
 #' 
 #' 
-#' @param x,q vector of quantiles.
-#' @param p vector of probabilities.
+#' @param x vector of quantiles.
 #' @param n number of observations. If length(n) > 1, the length is 
 #'   taken to be the number required.
 #' @param alpha dirichlet alpha parameter (numeric vector with
 #'   positive entries)
-#' @param log,log.p logical; if TRUE, probabilities p are given as 
+#' @param log logical; if TRUE, probabilities p are given as 
 #'   log(p).
-#' @param lower.tail logical; if TRUE (default), probabilities are 
-#'   P[X <= x] otherwise, P[X > x].
 #' @seealso \code{\link{dgamma}}; these functions just wrap the 
 #'   (d/p/q/r)gamma functions.
 #' @name dirichlet
@@ -83,9 +80,7 @@ NULL
 #' @rdname dirichlet
 #' @export
 ddirichlet <- function(x, alpha, log = FALSE) {
-  if (is.matrix(x)) {
-    return( apply(x, 1, ddirichlet) )
-  }
+  if (is.matrix(x)) return( apply(x, 1, ddirichlet) )
   if( any(x < 0)  ) return(0L)
   tol <- .Machine$double.eps
   if( abs(sum(x) - 1) > tol ) return(0L)

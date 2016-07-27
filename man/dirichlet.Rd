@@ -11,21 +11,16 @@ ddirichlet(x, alpha, log = FALSE)
 rdirichlet(n, alpha)
 }
 \arguments{
-\item{x, q}{vector of quantiles.}
+\item{x}{vector of quantiles.}
 
 \item{alpha}{dirichlet alpha parameter (numeric vector with
 positive entries)}
 
-\item{log, log.p}{logical; if TRUE, probabilities p are given as 
+\item{log}{logical; if TRUE, probabilities p are given as 
 log(p).}
 
 \item{n}{number of observations. If length(n) > 1, the length is 
 taken to be the number required.}
-
-\item{p}{vector of probabilities.}
-
-\item{lower.tail}{logical; if TRUE (default), probabilities are 
-P[X <= x] otherwise, P[X > x].}
 }
 \description{
 Density, distribution function, quantile function and random 
