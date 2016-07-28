@@ -59,6 +59,8 @@ mesh$f <- mesh %>% apply(1, function(v) f(bary2simp(v)))
 ```
 
 
+### The `rdirichlet()` function
+
 Random number generation can be performed with `rdirichlet()`:
 ```{r}
 set.seed(1)

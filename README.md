@@ -44,6 +44,8 @@ mesh$f <- mesh %>% apply(1, function(v) f(bary2simp(v)))
 
 ![](figures/README-unnamed-chunk-4-1.png)
 
+### The `rdirichlet()` function
+
 Random number generation can be performed with `rdirichlet()`:
 
 ``` r
