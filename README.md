@@ -31,17 +31,7 @@ ddirichlet(c(.5,.5), c(.5, .5))
 You can visualize it in barycentric coordinates like this:
 
 ``` r
-library(dplyr)
-#  
-#  Attaching package: 'dplyr'
-#  
-#  The following objects are masked from 'package:stats':
-#  
-#      filter, lag
-#  
-#  The following objects are masked from 'package:base':
-#  
-#      intersect, setdiff, setequal, union
+library(dplyr, warn.conflicts = FALSE)
 library(ggplot2); theme_set(theme_bw())
 f <- function(v) ddirichlet(v, c(20, 10, 5))
 mesh <- simplex_mesh(.0025) %>% as.data.frame %>% tbl_df
@@ -58,11 +48,13 @@ Random number generation can be performed with `rdirichlet()`:
 
 ``` r
 set.seed(1)
-rdirichlet(3, c(1, 1, 1))  # rows sum to 1
-#             [,1]      [,2]       [,3]
-#  [1,] 0.07830127 0.4220266 0.49967217
-#  [2,] 0.55164885 0.3582736 0.09007756
-#  [3,] 0.59019469 0.3788586 0.03094669
+rdirichlet(5, c(1, 1, 1))  # rows sum to 1
+#             [,1]       [,2]       [,3]
+#  [1,] 0.09551263 0.71314033 0.19134704
+#  [2,] 0.56339873 0.29631083 0.14029044
+#  [3,] 0.82772645 0.14099156 0.03128199
+#  [4,] 0.38355209 0.04340148 0.57304643
+#  [5,] 0.51197942 0.06583319 0.42218738
 rowSums(rdirichlet(3, c(1, 1, 1)))
 #  [1] 1 1 1
 ```
@@ -70,7 +62,7 @@ rowSums(rdirichlet(3, c(1, 1, 1)))
 You can visualize these points on top of the distribution above like this:
 
 ``` r
-points <- rdirichlet(1e3, c(20, 10, 5)) %>% simp2bary %>% 
+points <- rdirichlet(250, c(20, 10, 5)) %>% simp2bary %>% 
   as.data.frame %>% tbl_df %>% rename(x = V1, y = V2)
 
 p + geom_point(data = points, color = "orange", alpha = .3)
