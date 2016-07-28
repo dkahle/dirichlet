@@ -40,27 +40,15 @@ rdirichlet(3, c(1, 1))     # rows sum to 1
 rdirichlet(3, c(1, 1, 1))  # rows sum to 1
 rowSums(rdirichlet(3, c(1, 1, 1)))
 
-# this function converts 3d points that sum
-# to 1 to 2d points in a triangle (for ternary plots)
-simp2bary <- function (v) {
-  proj_mat <- matrix(c(
-    0, 1, 1/2,
-    0, 0, sqrt(3)/2
-  ), nrow = 2, ncol = 3, byrow = TRUE)
-  as.numeric(proj_mat \%*\% v)
-}
-simp2bary(c(1,0,0))
-simp2bary(c(0,1,0))
-simp2bary(c(0,0,1))
 
 library(dplyr)
 library(ggplot2); theme_set(theme_bw())
+
 samples <- rdirichlet(2e3, rep(1,3))
 head(samples)
 
 # project the points into two dimensions
-bary_samples <- apply(samples, 1, simp2bary) \%>\% 
-  t \%>\% as.data.frame \%>\% tbl_df
+bary_samples <- simp2bary(samples) \%>\% as.data.frame \%>\% tbl_df
 names(bary_samples) <- c("dim1", "dim2")
 qplot(dim1, dim2, data = bary_samples) +
   coord_equal()
@@ -69,20 +57,18 @@ qplot(dim1, dim2, data = bary_samples) +
 
 
 # visualize a density
-n <- 201
-s <- seq(0, 1, length.out = n)[c(-1,-n)]
-mesh <- expand.grid(s, s, s) \%>\% 
-  filter(abs(Var1 + Var2 + Var3 - 1) < 1e-5)
+f <- function(v) ddirichlet(v, c(20, 10, 5))
+mesh <- simplex_mesh(.0025) \%>\% as.data.frame \%>\% tbl_df
+mesh$f <- mesh \%>\% apply(1, function(v) f(bary2simp(v)))
   
-mesh_proj <- apply(mesh, 1, simp2bary) \%>\% 
-  t \%>\% as.data.frame \%>\% tbl_df
-
-f <- function(v) ddirichlet(v, c(10, 10, 5))
-mesh_proj$f <- apply(mesh, 1, f)
-
-qplot(V1, V2, data = mesh_proj, color = f, size = I(.2)) +
-  coord_equal()
+p <- ggplot(mesh, aes(x, y)) +
+  geom_raster(aes(fill = f)) +
+  coord_equal(xlim = c(0,1), ylim = c(0, .85))
+p
   
+points <- rdirichlet(1e3, c(20, 10, 5)) \%>\% simp2bary \%>\% 
+  as.data.frame \%>\% tbl_df \%>\% rename(x = V1, y = V2)
+p + geom_point(data = points, color = "orange", alpha = .3)
   
 }
 \seealso{
