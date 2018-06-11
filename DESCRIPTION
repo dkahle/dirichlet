@@ -1,7 +1,7 @@
 Package: dirichlet
 Type: Package
 Title: The Dirichlet Distribution
-Version: 0.0
+Version: 0.0.999
 URL: https://github.com/dkahle/dirichlet
 BugReports: https://github.com/dkahle/dirichlet/issues
 Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre", "cph"))
@@ -12,4 +12,4 @@ Suggests:
   ggplot2,
   dplyr
 License: GPL-2
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

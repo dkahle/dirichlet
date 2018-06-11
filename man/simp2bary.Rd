@@ -2,9 +2,10 @@
 % Please edit documentation in R/simp2bary.R
 \docType{data}
 \name{simp2bary}
-\alias{bary2simp}
+\alias{simp2bary}
 \alias{proj_mat}
 \alias{simp2bary}
+\alias{bary2simp}
 \alias{simplex_mesh}
 \title{Barycentric coordinates}
 \format{An object of class \code{matrix} with 2 rows and 2 columns.}
@@ -20,6 +21,8 @@ simplex_mesh(delta)
 \arguments{
 \item{v}{a numeric 3-vector or nx3 matrix; in the latter case, 
 the function is applied to the rows}
+
+\item{simplify}{simplify the result to numeric vector?}
 
 \item{delta}{the mesh size}
 }
@@ -51,11 +54,15 @@ rdirichlet(1e3, rep(1,3)) \%>\% simp2bary \%>\%
     coord_equal()
 
 simplex_mesh(.05) \%>\% as.data.frame \%>\% tbl_df \%>\% 
-  ggplot(aes(x, y)) + geom_tile() +
+  ggplot(aes(x, y)) + geom_point() +
     coord_equal()
 
 simplex_mesh(.01) \%>\% as.data.frame \%>\% tbl_df \%>\% 
-  ggplot(aes(x, y)) + geom_tile() +
+  ggplot(aes(x, y)) + geom_point(size = .1) +
+    coord_equal()
+    
+simplex_mesh(.005) \%>\% as.data.frame \%>\% tbl_df \%>\% 
+  ggplot(aes(x, y)) + geom_point(size = .001) +
     coord_equal()
 
 simplex_mesh(.005) \%>\% as.data.frame \%>\% tbl_df \%>\% 
@@ -67,4 +74,3 @@ rowSums(bary2simp(simplex_mesh(.1)))
 
 }
 \keyword{datasets}
-

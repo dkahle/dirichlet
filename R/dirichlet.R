@@ -3,8 +3,8 @@
 #' Density, distribution function, quantile function and random 
 #' generation for the dirichlet distribution.
 #' 
-#' The functions (d/p/q/r)dirichlet simply wrap those of the
-#' standard (d/p/q/r)gamma R implementation, so look at, say, 
+#' The functions (d/r)dirichlet simply wrap those of the
+#' standard (d/r)gamma R implementation, so look at, say, 
 #' \code{\link{dgamma}} for details.
 #' 
 #' 
@@ -16,7 +16,7 @@
 #' @param log logical; if TRUE, probabilities p are given as 
 #'   log(p).
 #' @seealso \code{\link{dgamma}}; these functions just wrap the 
-#'   (d/p/q/r)gamma functions.
+#'   (d/r)gamma functions.
 #' @name dirichlet
 #' @importFrom stats dgamma pgamma qgamma rgamma dbeta
 #' @examples
@@ -56,6 +56,7 @@
 #'   
 #' points <- rdirichlet(1e3, c(20, 10, 5)) %>% simp2bary %>% 
 #'   as.data.frame %>% tbl_df %>% rename(x = V1, y = V2)
+
 #' p + geom_point(data = points, color = "orange", alpha = .3)
 #'   
 NULL
@@ -87,7 +88,11 @@ ddirichlet <- function(x, alpha, log = FALSE) {
 rdirichlet <- function(n, alpha) {
   normalize <- function(.) . / sum(.)
   samps <- vapply(alpha, function(al) rgamma(n, al, 1), numeric(n))
-  t(apply(samps, 1, normalize))
+  if (n == 1) {
+    matrix(normalize(samps), nrow = 1, ncol = length(samps))
+  } else {
+    t(apply(samps, 1, normalize))
+  }  
 }
 
 

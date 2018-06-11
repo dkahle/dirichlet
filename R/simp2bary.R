@@ -7,6 +7,7 @@
 #' @param v a numeric 3-vector or nx3 matrix; in the latter case, 
 #'   the function is applied to the rows
 #' @param delta the mesh size
+#' @param simplify simplify the result to numeric vector?
 #' @name simp2bary
 #' @examples
 #' 
@@ -31,11 +32,15 @@
 #'     coord_equal()
 #' 
 #' simplex_mesh(.05) %>% as.data.frame %>% tbl_df %>% 
-#'   ggplot(aes(x, y)) + geom_tile() +
+#'   ggplot(aes(x, y)) + geom_point() +
 #'     coord_equal()
 #' 
 #' simplex_mesh(.01) %>% as.data.frame %>% tbl_df %>% 
-#'   ggplot(aes(x, y)) + geom_tile() +
+#'   ggplot(aes(x, y)) + geom_point(size = .1) +
+#'     coord_equal()
+#'     
+#' simplex_mesh(.005) %>% as.data.frame %>% tbl_df %>% 
+#'   ggplot(aes(x, y)) + geom_point(size = .001) +
 #'     coord_equal()
 #' 
 #' simplex_mesh(.005) %>% as.data.frame %>% tbl_df %>% 
