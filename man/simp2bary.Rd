@@ -4,11 +4,12 @@
 \name{simp2bary}
 \alias{simp2bary}
 \alias{proj_mat}
-\alias{simp2bary}
 \alias{bary2simp}
 \alias{simplex_mesh}
 \title{Barycentric coordinates}
-\format{An object of class \code{matrix} with 2 rows and 2 columns.}
+\format{
+An object of class \code{matrix} (inherits from \code{array}) with 2 rows and 2 columns.
+}
 \usage{
 proj_mat
 
@@ -19,7 +20,7 @@ bary2simp(v, simplify = TRUE)
 simplex_mesh(delta)
 }
 \arguments{
-\item{v}{a numeric 3-vector or nx3 matrix; in the latter case, 
+\item{v}{a numeric 3-vector or nx3 matrix; in the latter case,
 the function is applied to the rows}
 
 \item{simplify}{simplify the result to numeric vector?}
@@ -27,7 +28,7 @@ the function is applied to the rows}
 \item{delta}{the mesh size}
 }
 \description{
-Convert points on the two-dimensional probability simplex 
+Convert points on the two-dimensional probability simplex
 (embedded in R3) to points on the triangle in R2. These are often
 used in what is also called ternary plots.
 }

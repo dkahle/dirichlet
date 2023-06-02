@@ -16,19 +16,19 @@ rdirichlet(n, alpha)
 \item{alpha}{dirichlet alpha parameter (numeric vector with
 positive entries)}
 
-\item{log}{logical; if TRUE, probabilities p are given as 
+\item{log}{logical; if TRUE, probabilities p are given as
 log(p).}
 
-\item{n}{number of observations. If length(n) > 1, the length is 
+\item{n}{number of observations. If length(n) > 1, the length is
 taken to be the number required.}
 }
 \description{
-Density, distribution function, quantile function and random 
+Density, distribution function, quantile function and random
 generation for the dirichlet distribution.
 }
 \details{
 The functions (d/r)dirichlet simply wrap those of the
-standard (d/r)gamma R implementation, so look at, say, 
+standard (d/r)gamma R implementation, so look at, say,
 \code{\link{dgamma}} for details.
 }
 \examples{
@@ -72,6 +72,6 @@ p + geom_point(data = points, color = "orange", alpha = .3)
   
 }
 \seealso{
-\code{\link{dgamma}}; these functions just wrap the 
-  (d/r)gamma functions.
+\code{\link{dgamma}}; these functions just wrap the
+(d/r)gamma functions.
 }
