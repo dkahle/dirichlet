@@ -11,5 +11,7 @@ Description: Light weight implementation of the standard distribution
 Suggests:
   ggplot2,
   dplyr
-License: GPL-2
-RoxygenNote: 6.0.1
+License: MIT + file LICENSE
+RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
